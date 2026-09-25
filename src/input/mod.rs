@@ -2449,12 +2449,13 @@ impl State {
         else {
             return pos;
         };
+        let scale = 1. / output.current_scale().fractional_scale();
         let output_geo = self.niri.global_space.output_geometry(output).unwrap();
         rect.loc += output_geo.loc.to_f64();
 
         Point::from((
-            pos.x.clamp(rect.loc.x, rect.loc.x + rect.size.w),
-            pos.y.clamp(rect.loc.y, rect.loc.y + rect.size.h),
+            pos.x.clamp(rect.loc.x, rect.loc.x + rect.size.w - scale),
+            pos.y.clamp(rect.loc.y, rect.loc.y + rect.size.h - scale),
         ))
     }
 
